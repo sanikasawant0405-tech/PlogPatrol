@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Donor Registration</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/UserRegistration.css">
+</head>
+
+<body>
+    <div id="content">
+        <div data-role-header="donor" data-logout-mode="never"></div>
+    <script src="/js/roleHeaders.js"></script>
+
+        <div class="registration-container">
+            <div class="registration-form">
+                <h1>Create Donor Account</h1>
+                <form id="donorRegisterForm" method="post" action="/DonorRegistration">
+                    <label>User ID</label>
+                    <input type="text" placeholder="Enter Username" name="d_userid" required>
+
+                    <label>Password</label>
+                    <input type="password" placeholder="Enter Password" name="d_password" required>
+
+                    <label>Confirm Password</label>
+                    <input type="password" placeholder="Confirm Password" name="dconfirmPassword" required>
+
+                    <label for="ques">Security Question</label>
+                    <select id="ques" name="d_securityques" required>
+                        <option value="">Select a question</option>
+                        <option value="favteach">Who is your favourite teacher?</option>
+                        <option value="sport">What is your favourite sport?</option>
+                        <option value="gname">What is your grandfather's name?</option>
+                        <option value="color">What color do you like the most?</option>
+                    </select>
+
+                    <label>Security Answer</label>
+                    <input type="text" placeholder="Enter Answer" name="d_securityans" required>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <div data-role-footer="donor"></div>
+    <script src="/js/roleFooters.js"></script>
+    </div>
+
+    <script src="/js/formMessages.js"></script>
+    <script>
+    const donorRegisterMessageTarget = document.querySelector(".registration-form");
+
+    function notify(message, type = "info") {
+        if (window.showFormMessage) {
+            window.showFormMessage(donorRegisterMessageTarget, message, type);
+            return;
+        }
+
+        if (window.showToast) {
+            window.showToast(message, type);
+            return;
+        }
+
+        window["alert"](message);
+    }
+
+    document.getElementById("donorRegisterForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        notify("Creating your donor account...", "info");
+
+        const d_userid = document.querySelector("[name='d_userid']").value.trim();
+        const d_password = document.querySelector("[name='d_password']").value;
+        const dconfirmPassword = document.querySelector("[name='dconfirmPassword']").value;
+        const d_securityques = document.querySelector("[name='d_securityques']").value;
+        const d_securityans = document.querySelector("[name='d_securityans']").value.trim();
+
+        if (d_password !== dconfirmPassword) {
+            notify("Passwords do not match.", "error");
+            return;
+        }
+
+        try {
+            const response = await fetch("/DonorRegistration", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    d_userid,
+                    d_password,
+                    dconfirmPassword,
+                    d_securityques,
+                    d_securityans
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                notify(`${data.message || "Donor registration successful."} Redirecting to login...`, "success");
+                setTimeout(() => {
+                    window.location.href = data.redirectUrl || "Donorlogin.html";
+                }, 700);
+            } else {
+                notify(data.message || "Donor registration failed.", "error");
+            }
+        } catch (error) {
+            console.error(error);
+            notify("Donor registration failed. Please make sure the server is running.", "error");
+        }
+    });
+    </script>
+</body>
+
+</html>

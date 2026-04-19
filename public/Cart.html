@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Goods Donation Receipt</title>
+    <link rel="stylesheet" href="css/Cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div id="content">
+        <div data-role-header="donor" data-logout-mode="auto"></div>
+    <script src="/js/roleHeaders.js"></script>
+
+        <main class="cart-page">
+            <section class="cart-container">
+                <div class="cart-header">
+                    <span class="eyebrow">Goods Donation</span>
+                    <h1><i class="fas fa-box-open"></i> Donation Cart</h1>
+                    <p>Confirm the goods, add donor details, and generate a formatted receipt.</p>
+                </div>
+
+                <div id="cart-items"></div>
+
+                <div class="total-items">
+                    <span>Total Quantity</span>
+                    <strong id="total-items-count">0</strong>
+                </div>
+
+                <section class="receipt-details-form" aria-label="Goods donation receipt details">
+                    <h2>Receipt Details</h2>
+                    <div class="form-grid">
+                        <label>
+                            Donor Name
+                            <input type="text" id="donor-name" placeholder="Enter donor name">
+                        </label>
+                        <label>
+                            Contact Number
+                            <input type="tel" id="donor-phone" placeholder="Enter mobile number">
+                        </label>
+                        <label>
+                            Drop-off / Pickup Date
+                            <input type="date" id="donation-date">
+                        </label>
+                        <label>
+                            Collection Address
+                            <textarea id="donation-address" rows="3" placeholder="Enter address or drop-off point"></textarea>
+                        </label>
+                    </div>
+                </section>
+
+                <div class="cart-actions">
+                    <button id="edit-cart" class="edit-btn" type="button">
+                        <i class="fas fa-edit"></i> Edit Cart
+                    </button>
+                    <button id="clear-cart" class="clear-btn" type="button">
+                        <i class="fas fa-trash"></i> Clear Cart
+                    </button>
+                    <button id="submit-btn" class="submit-btn" type="button">
+                        <i class="fas fa-receipt"></i> Generate Receipt
+                    </button>
+                </div>
+            </section>
+
+            <section id="receipt-container" class="receipt-card receipt-empty" aria-live="polite">
+                <div class="receipt-watermark">PP</div>
+                <p class="receipt-kicker">Receipt Preview</p>
+                <h2>No goods receipt generated yet</h2>
+                <p>Select goods and click Generate Receipt to create your donation receipt.</p>
+            </section>
+        </main>
+
+        <div data-role-footer="donor"></div>
+    <script src="/js/roleFooters.js"></script>
+    </div>
+
+        <script src="js/Cart.js?v=3"></script>
+</body>
+</html>
+

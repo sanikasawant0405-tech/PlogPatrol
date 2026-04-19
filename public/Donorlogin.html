@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Donor Login</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/UserLogin.css">
+</head>
+<body>
+    <!-- Main Content -->
+    <div id="content">
+        <div data-role-header="donor" data-logout-mode="never"></div>
+    <script src="/js/roleHeaders.js"></script>
+
+        <!-- Donor Login Form Section -->
+        <div class="login-container">
+            <form id="donorLoginForm" name="DonorLogin" method="post" action="/DonorLogin">
+                <h1>Donor Login</h1>
+                <label>Username</label>
+                <input type="text" placeholder="Enter Username" name="d_userid" required>  
+                <label>Password</label>
+                <input type="password" placeholder="Enter Password" name="d_password" required>  
+                <button type="submit">Login</button>
+
+                <div class="two-col">
+                    <div class="one">
+                        <br><a href="DonorRegistration.html">Register as Donor</a>
+                    </div>
+                    <div class="two">
+                        <a href="#">Forgot password? </a>
+                    </div>
+                </div>
+            </form> <!-- Moved the closing </form> tag here -->
+        </div>
+        <!-- Footer Section -->
+        <div data-role-footer="donor"></div>
+    <script src="/js/roleFooters.js"></script>
+        
+    </div>
+
+    <script src="/js/formMessages.js"></script>
+    <script>
+    const donorLoginForm = document.getElementById("donorLoginForm");
+
+    function notify(message, type = "info") {
+        if (window.showFormMessage) {
+            window.showFormMessage(donorLoginForm, message, type);
+            return;
+        }
+
+        if (window.showToast) {
+            window.showToast(message, type);
+            return;
+        }
+
+        window["alert"](message);
+    }
+
+    donorLoginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        notify("Checking your donor login...", "info");
+
+        const d_userid = document.querySelector("[name='d_userid']").value.trim();
+        const d_password = document.querySelector("[name='d_password']").value;
+
+        try {
+            const response = await fetch("/DonorLogin", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ d_userid, d_password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                notify(`${data.message || "Donor login successful."} Redirecting...`, "success");
+                localStorage.setItem("donorUserId", d_userid);
+                setTimeout(() => {
+                    window.location.href = data.redirectUrl || "DonorInfo.html";
+                }, 650);
+            } else {
+                notify(data.message || "Donor login failed.", "error");
+            }
+        } catch (error) {
+            console.error(error);
+            notify("Donor login failed. Please make sure the server is running.", "error");
+        }
+    });
+    </script>
+</body>
+</html>

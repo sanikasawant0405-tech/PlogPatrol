@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - User Login</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/UserLogin.css">
+</head>
+<body>
+
+<div id="content">
+    <div data-role-header="user" data-logout-mode="never"></div>
+    <script src="/js/roleHeaders.js"></script>
+
+    <div class="login-container">
+        <form id="loginForm">
+            <h1>User Login</h1>
+
+            <label>Username</label>
+            <input type="text" placeholder="Enter Username" name="username" required>
+
+            <label>Password</label>
+            <input type="password" placeholder="Enter Password" name="password" required>
+
+            <button type="submit">Login</button>
+
+            <div class="two-col">
+                <div class="one">
+                    <br><a href="UserRegistration.html">New User?</a>
+                </div>
+                <div class="two">
+                    <a href="#">Forgot password?</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer SAME -->
+    <div data-role-footer="user"></div>
+    <script src="/js/roleFooters.js"></script>
+</div>
+
+<script src="/js/formMessages.js"></script>
+<script src="/js/userLogin.js"></script>
+
+</body>
+</html>

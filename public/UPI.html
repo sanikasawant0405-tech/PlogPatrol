@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - UPI Donation Receipt</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/UserLogin.css">
+    <link rel="stylesheet" href="css/UPI.css">
+</head>
+<body>
+    <div id="content">
+        <div data-role-header="donor" data-logout-mode="auto"></div>
+    <script src="/js/roleHeaders.js"></script>
+
+        <main class="donation-page">
+            <section class="wallet-container">
+                <div class="wallet-header">
+                    <span class="eyebrow">Cash Donation</span>
+                    <h1>UPI Payment Receipt</h1>
+                    <p>Add money to your wallet, make a donation, and generate a clean receipt for your records.</p>
+                </div>
+
+                <div class="wallet-grid">
+                    <section class="payment-panel" aria-label="UPI donation form">
+                        <div class="balance-card">
+                            <span>Available Wallet Balance</span>
+                            <strong id="balance">Rs0.00</strong>
+                        </div>
+
+                        <label for="amount">Donation Amount</label>
+                        <input type="number" id="amount" min="1" step="1" placeholder="Enter amount in rupees">
+
+                        <div class="button-row">
+                            <button type="button" onclick="addMoney()">Add Money</button>
+                            <button type="button" class="primary-action" onclick="makePayment()">Make Payment</button>
+                            <button type="button" class="outline-action" onclick="printReceipt()">Print Receipt</button>
+                        </div>
+
+                        <p class="pin-note">Demo PIN for this project: <strong>1515</strong></p>
+                    </section>
+
+                    <section id="receipt-container" class="receipt-card receipt-empty" aria-live="polite">
+                        <div class="receipt-watermark">PP</div>
+                        <p class="receipt-kicker">Receipt Preview</p>
+                        <h2>No payment receipt generated yet</h2>
+                        <p>Complete a UPI donation to see the official receipt here.</p>
+                    </section>
+                </div>
+
+                <section id="transaction-history" class="history-card"></section>
+            </section>
+        </main>
+
+        <div data-role-footer="donor"></div>
+    <script src="/js/roleFooters.js"></script>
+    </div>
+
+    <script src="js/UPI.js?v=3"></script>
+
+</body>
+</html>

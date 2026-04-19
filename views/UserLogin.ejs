@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - User Login</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/UserLogin.css">
+    <style>
+        /* Your existing styles... */
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+            opacity: 0; /* Start with invisible */
+            transition: opacity 0.3s ease; /* Fade effect */
+        }
+        /* Show modal */
+        .modal.show {
+            display: block; /* Show the modal */
+            opacity: 1; /* Fully visible */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-width: 500px; /* Max width for larger screens */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            transform: translateY(-50px); /* Start position for the slide effect */
+            transition: transform 0.3s ease; /* Slide effect */
+        }
+        /* Show modal content */
+        .modal.show .modal-content {
+            transform: translateY(0); /* Move into view */
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <div id="content">
+        <div data-role-header="user" data-logout-mode="never"></div>
+    <script src="/js/roleHeaders.js"></script>
+        
+        <!-- Login Form Section -->
+        <div class="login-container">
+            <form name="personalinformationForm" method="post" action="/UserLogin" onsubmit="handleLogin(event)">
+                <center> <h1> Login Form </h1> </center>
+                <label>Username : </label>   
+                <input type="text" placeholder="Enter Username" name="username" required>  
+                <label>Password : </label>   
+                <input type="password" placeholder="Enter Password" name="password" required>  
+                <button type="submit">Login</button>
+                <div class="two-col">
+                    <div class="one">
+                        <br><a href="UserRegistration.html">New User? </a>
+                    </div>
+                    <div class="two">
+                        <a href="#">Forgot password? </a>
+                    </div>
+                </div>
+            </form> <!-- Moved the closing </form> tag here -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p id="modalMessage">Invalid Credentials</p>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Section -->
+        <div data-role-footer="user"></div>
+    <script src="/js/roleFooters.js"></script>
+        
+    </div>
+    <script>
+        // Your existing JavaScript...
+        // Get the modal
+        const modal = document.getElementById("myModal");
+        // Get the <span> element that closes the modal
+        const span = document.getElementsByClassName("close")[0];
+        // Function to open modal with message
+        function showModal(message) {
+            document.getElementById("modalMessage").innerText = message; // Set the message
+            modal.classList.add("show"); // Add the class to show modal
+        }
+        // Function to close modal
+        function closeModal() {
+            modal.classList.remove("show"); // Remove the class to hide modal
+        }
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            closeModal();
+        }
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+        // Updated handleLogin function to use showModal
+        async function handleLogin(event) {
+            event.preventDefault(); // Prevent form submission
+            const username = document.getElementsByName("username")[0].value;
+            const password = document.getElementsByName("password")[0].value;
+            try {
+                const response = await fetch("/UserLogin", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                if (!response.ok) {
+                    const data = await response.json();
+                    showModal(data.message); // Display the custom modal with the error message
+                } else {
+                    window.location.href = "/PersonalInfo.html"; // Redirect on successful login
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                showModal("An error occurred while logging in. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>

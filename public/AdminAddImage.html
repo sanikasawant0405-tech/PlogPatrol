@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Upload Image</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/AdminLogin.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .upload-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full page height */
+        }
+
+        .upload-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 600px; /* Increased Box width */
+            text-align: center;
+        }
+
+        .upload-container h1 {
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            color: #4e97f1e2;
+        }
+
+        .upload-container label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .upload-container input[type="text"],
+        .upload-container input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .upload-container button {
+            margin-top: 15px;
+            padding: 12px 18px;
+            background-color: #3b91fa;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            width: 100%;
+        }
+
+        .upload-container button:hover {
+            background-color:#4e97f18e;
+        }
+
+        .response-message {
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Main Content Wrapper -->
+    <div id="content">
+        <div data-role-header="admin" data-logout-mode="auto"></div>
+    <script src="/js/roleHeaders.js"></script>
+
+        <!-- Upload Form in Box -->
+        <div class="upload-box">
+            <div class="upload-container">
+                <h1>Upload Your Plogging Image</h1>
+                <form id="uploadForm" enctype="multipart/form-data" method="post" action="/addimg">
+                    <label for="imageTitle">Image Title<span class="required">*</span></label>
+                    <input type="text" id="imageTitle" name="imageTitle" required>
+
+                    <label for="imageFile">Choose Image<span class="required">*</span></label>
+                    <input type="file" id="imageFile" name="imageFile" accept="image/*" required>
+
+                    <button type="submit">Upload Image</button>
+                </form>
+                <div id="responseMessage" class="response-message"></div>
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div data-role-footer="admin"></div>
+    <script src="/js/roleFooters.js"></script>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const messageElement = document.getElementById('responseMessage');
+                messageElement.textContent = data.message;
+                messageElement.className = 'success';
+                document.getElementById('uploadForm').reset();
+            })
+            .catch(error => {
+                const messageElement = document.getElementById('responseMessage');
+                messageElement.textContent = 'Upload failed. Please try again.';
+                messageElement.className = 'error';
+                console.error('Error uploading image:', error);
+            });
+        });
+    </script>
+</body>
+</html>

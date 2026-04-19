@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Donor Information</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/PersonalInfo.css">
+</head>
+<body>
+    <!-- Main Content -->
+    <div id="content">
+        <div data-role-header="donor" data-logout-mode="auto"></div>
+    <script src="/js/roleHeaders.js"></script>
+
+        <!-- Registration Form Section -->
+        <div class="registration-container">
+            <form name="personalinformationForm" method="post" action="/donorPersonalInfo">
+                <div class="container"> 
+                    <h1>Personal Information</h1>
+            
+                    <label for="fullName">Full Name<span class="required">*</span></label>
+                    <input type="text" id="firstName" name="d_name" required>
+                    <span class="error-message" id="firstNameError"></span>
+
+                    <label for="Age">Age<span class="required">*</span></label>
+                    <input type="text" id="lastName" name="d_age" required>
+                    <span class="error-message" id="lastNameError"></span>
+
+                     <label for="phone">Mobile Phone<span class="required">*</span></label>
+                    <input type="tel" id="phone" name="d_mobno" pattern="[0-9]{10}" required>
+                    <span class="error-message" id="phoneError"></span>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="d_mailid" required>
+                    <span class="error-message" id="emailError"></span>
+                    
+                    <label>Gender</label>
+                    <input type="radio" id="male" name="d_gender" value="male"> Male
+                    <input type="radio" id="female" name="d_gender" value="female"> Female
+                    <span class="error-message" id="genderError"></span>
+
+                     <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="d_dob">
+                    <span class="error-message" id="dobError"></span>
+        
+            
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+            
+        </div>
+
+        <!-- Footer Section -->
+        <div data-role-footer="donor"></div>
+    <script src="/js/roleFooters.js"></script>
+    </div>
+
+    <script src="/js/formMessages.js"></script>
+    <script src="js/PersonalInfo.js"></script>
+</body>
+</html>

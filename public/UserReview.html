@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Feedback</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/UserReview.css">
+    <link rel="stylesheet" href="css/UserLogin.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div data-role-header="user" data-logout-mode="auto"></div>
+    <script src="/js/roleHeaders.js"></script>
+
+    <!-- Main Content -->
+    <div id="content"><br><br><br>
+            <!-- Review Section -->
+        <section class="review-section">
+            <div class="container">
+                <h1>User Reviews</h1>
+
+                <!-- Average Rating Display -->
+                <div id="averageRatingContainer" class="average-rating">
+                    <h2>Average Rating: <span id="averageRating">0</span> / 5</h2>
+                    <div class="stars" id="averageStars"></div>
+                </div>
+
+                <!-- Review Form -->
+                <form id="reviewForm" class="review-form">
+                    <h2>Add Your Review</h2>
+                    <div class="form-group">
+                        <label for="username">Your Name:</label>
+                        <input type="text" id="username" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="rating">Rating:</label>
+                        <select id="rating" required>
+                            <option value="" disabled selected>Select rating</option>
+                            <option value="5">5 - Excellent</option>
+                            <option value="4">4 - Good</option>
+                            <option value="3">3 - Average</option>
+                            <option value="2">2 - Poor</option>
+                            <option value="1">1 - Terrible</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewText">Your Review:</label>
+                        <textarea id="reviewText" rows="4" required placeholder="Write your review here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Submit Review</button>
+                    <input type="hidden" id="editIndex">
+                </form>
+
+                <!-- Display Reviews -->
+                <div id="reviewsContainer" class="reviews-container">
+                    <!-- Reviews will be appended here -->
+                </div>
+            </div>
+        </section>
+    </div><br>
+
+    <!-- Footer Section -->
+    <div data-role-footer="user"></div>
+    <script src="/js/roleFooters.js"></script>
+<!-- Thank You Modal -->
+<div id="thankYouModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" id="closeModal">&times;</span>
+        <h2>Thank You!</h2>
+        <p>Your review has been submitted successfully.</p>
+    </div>
+</div>
+
+    <script src="js/UserReview.js"></script>
+</body>
+</html>

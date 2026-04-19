@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap">
+    <link rel="stylesheet" href="css/AdminMain.css">
+</head>
+<body>
+    <div id="content">
+        <div data-role-header="admin" data-logout-mode="auto"></div>
+        <script src="/js/roleHeaders.js"></script>
+
+        <main class="admin-dashboard">
+            <section class="admin-hero" aria-label="Admin dashboard overview">
+                <div class="admin-hero__copy">
+                    <span class="admin-kicker">Admin Dashboard</span>
+                    <h1>Manage plogging activity from one clean workspace.</h1>
+                    <p>Track members, donors, and events, then jump straight into the work that keeps PlogPatrol organized.</p>
+                    <div class="admin-actions">
+                        <a href="/CreateEvent.html">Create Event</a>
+                        <a href="/PloggerDetails.html">View Ploggers</a>
+                        <a href="/AdminDonationHistory.html">Donation History</a>
+                    </div>
+                </div>
+                <div class="admin-hero__media">
+                    <img src="/images/Img2.jpg" alt="PlogPatrol cleanup activity">
+                </div>
+            </section>
+
+            <section class="stats-container" aria-label="PlogPatrol statistics">
+                <article class="stats-box">
+                    <span>Community</span>
+                    <h3>Users Joined</h3>
+                    <p id="users-joined">0</p>
+                </article>
+                <article class="stats-box">
+                    <span>Support</span>
+                    <h3>Donors Joined</h3>
+                    <p id="donors-joined">0</p>
+                </article>
+                <article class="stats-box">
+                    <span>Operations</span>
+                    <h3>Events Created</h3>
+                    <p id="events-created">0</p>
+                </article>
+                <article class="stats-box">
+                    <span>Profiles</span>
+                    <h3>Pending Profiles</h3>
+                    <p id="pending-profiles">0</p>
+                </article>
+                <article class="stats-box">
+                    <span>Donations</span>
+                    <h3>Cash Collected</h3>
+                    <p id="cash-total">₹0</p>
+                </article>
+                <article class="stats-box">
+                    <span>Goods</span>
+                    <h3>Goods Items</h3>
+                    <p id="goods-total">0</p>
+                </article>
+            </section>
+
+            <section class="admin-tools" aria-label="Admin quick tools">
+                <a class="admin-tool" href="/UpcomingEvents.html">
+                    <span class="admin-tool__icon">EV</span>
+                    <strong>Upcoming Events</strong>
+                    <span>Review scheduled cleanups and remove outdated entries.</span>
+                </a>
+                <a class="admin-tool" href="/EventDetail.html">
+                    <span class="admin-tool__icon">PT</span>
+                    <strong>Event Participants</strong>
+                    <span>Check who joined each plogging activity.</span>
+                </a>
+                <a class="admin-tool" href="/DonorDetails.html">
+                    <span class="admin-tool__icon">DN</span>
+                    <strong>Donor Details</strong>
+                    <span>View donor profiles and personal information status.</span>
+                </a>
+                <a class="admin-tool" href="/Gallery.html">
+                    <span class="admin-tool__icon">GL</span>
+                    <strong>Gallery</strong>
+                    <span>Browse cleanup moments and community highlights.</span>
+                </a>
+            </section>
+
+            <section class="recent-events-card" aria-label="Recent events preview">
+                <div class="recent-events-card__heading">
+                    <div>
+                        <span class="admin-kicker">Recent Activity</span>
+                        <h2>Latest Events</h2>
+                    </div>
+                    <a href="/UpcomingEvents.html">View Events</a>
+                </div>
+                <div class="recent-events-table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Date</th>
+                                <th>Location</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-events-body">
+                            <tr>
+                                <td colspan="4">Loading recent events...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <div data-role-footer="admin"></div>
+        <script src="/js/roleFooters.js"></script>
+    </div>
+
+    <script>
+        const formatCurrency = (amount) => new Intl.NumberFormat("en-IN", {
+            style: "currency",
+            currency: "INR",
+            maximumFractionDigits: 0
+        }).format(Number(amount) || 0);
+
+        const formatDate = (value) => {
+            if (!value) {
+                return "TBA";
+            }
+
+            return new Date(`${value}T00:00:00`).toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            });
+        };
+
+        const renderRecentEvents = (events) => {
+            const tableBody = document.getElementById("recent-events-body");
+
+            if (!Array.isArray(events) || events.length === 0) {
+                tableBody.innerHTML = "<tr><td colspan=\"4\">No events created yet.</td></tr>";
+                return;
+            }
+
+            tableBody.innerHTML = events.map((eventItem) => `
+                <tr>
+                    <td>${eventItem.e_name || "Untitled Event"}</td>
+                    <td>${formatDate(eventItem.e_date)}</td>
+                    <td>${eventItem.e_loc || "TBA"}</td>
+                    <td>${eventItem.e_time || "TBA"}</td>
+                </tr>
+            `).join("");
+        };
+
+        fetch("/api/admin/dashboard", {
+            headers: {
+                "Accept": "application/json"
+            }
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Unable to load dashboard.");
+                }
+
+                return response.json();
+            })
+            .then((data) => {
+                const counts = data.counts || {};
+                const donations = data.donations || {};
+                const pendingProfiles = Number(counts.pendingUserProfiles || 0) + Number(counts.pendingDonorProfiles || 0);
+
+                document.getElementById("users-joined").innerText = counts.userCount || 0;
+                document.getElementById("donors-joined").innerText = counts.donorCount || 0;
+                document.getElementById("events-created").innerText = counts.eventCount || 0;
+                document.getElementById("pending-profiles").innerText = pendingProfiles;
+                document.getElementById("cash-total").innerText = formatCurrency(donations.cashTotal || 0);
+                document.getElementById("goods-total").innerText = donations.goodsTotal || 0;
+                renderRecentEvents(data.recentEvents || []);
+            })
+            .catch((error) => {
+                console.error("Error fetching dashboard:", error);
+                if (window.PlogPatrolToast) {
+                    window.PlogPatrolToast.error(error.message);
+                }
+            });
+    </script>
+</body>
+</html>

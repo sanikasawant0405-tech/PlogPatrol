@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Donor Donation History</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/DonationHistory.css">
+</head>
+<body data-history-scope="donor">
+    <div id="content">
+        <div data-role-header="donor" data-logout-mode="auto"></div>
+    <script src="/js/roleHeaders.js"></script>
+
+        <main class="history-page">
+            <section class="history-hero">
+                <span class="eyebrow">Donor Panel</span>
+                <h1>My Donation History</h1>
+                <p>All your UPI payment and goods donation receipts are saved here even after logout and re-login.</p>
+            </section>
+
+            <section class="summary-grid">
+                <article>
+                    <span>Total Donations</span>
+                    <strong id="total-donations">0</strong>
+                </article>
+                <article>
+                    <span>UPI Amount</span>
+                    <strong id="total-upi">Rs0.00</strong>
+                </article>
+                <article>
+                    <span>Goods Quantity</span>
+                    <strong id="total-goods">0</strong>
+                </article>
+            </section>
+
+            <section class="history-card">
+                <div class="table-heading">
+                    <div>
+                        <h2>Receipt Records</h2>
+                        <p id="history-status">Loading donation history...</p>
+                    </div>
+                    <button id="refresh-history" type="button">Refresh</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Receipt No.</th>
+                                <th>Type</th>
+                                <th>Amount / Goods</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donation-history-body"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div data-role-footer="donor"></div>
+    <script src="/js/roleFooters.js"></script>
+    <script src="js/DonationHistory.js?v=3"></script>
+</body>
+</html>

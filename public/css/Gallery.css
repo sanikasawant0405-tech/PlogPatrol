@@ -1,0 +1,226 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f4f7;
+    color: #333;
+}
+
+/* Dashboard Styling */
+.dashboard {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background-color: #b3f14eac;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.logo {
+    width: 100px;
+}
+
+.nav-links {
+    margin-left: auto;
+    display: flex;
+}
+
+.nav-links a {
+    color: black;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ff4500;
+    transform: scale(1.1);
+}
+
+/* Filter Buttons */
+.filter-buttons {
+    text-align: center;
+    margin: 100px 0 20px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    background-color: #68a72e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background-color: #4b751f;
+}
+
+/* Gallery Styling with Animations */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.gallery-item {
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.5s ease-in-out;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.2) rotate(2deg);
+}
+
+/* Overlay on Hover */
+.gallery-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    border-radius: 10px;
+}
+
+.gallery-item:hover::before {
+    opacity: 1;
+}
+
+/* Full-Screen Mode */
+#fullscreen-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#fullscreen-container img {
+    max-width: 90%;
+    max-height: 90%;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#fullscreen-container.show {
+    display: flex;
+    opacity: 1;
+}
+
+#close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
+
+#close-btn:hover {
+    color: #ff4500;
+}
+
+#fullscreen-container.show {
+    display: flex;  /* Make sure it's visible */
+    opacity: 1;     /* Optional: Fade-in effect */
+}
+
+#fullscreen-container img.fade-in {
+    opacity: 0;
+    transform: scale(0.9);
+    animation: fadeInScale 0.5s forwards;
+}
+
+/* Keyframes for fade-in and scale effect */
+@keyframes fadeInScale {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Footer styling */
+footer {
+    background-color: #b3f14eac;
+    color: black;
+    padding: 20px 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+.footer-section {
+    flex: 1;
+    margin: 10px;
+}
+
+.footer-section h2 {
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.footer-section a {
+    color: black;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 10px;
+    background-color: #b3f14edd;
+}

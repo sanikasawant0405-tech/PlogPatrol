@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - User Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap">
+    <link rel="stylesheet" href="css/UserMain.css">
+</head>
+<body>
+    <div id="content">
+        <div data-role-header="user" data-logout-mode="auto"></div>
+        <script src="/js/roleHeaders.js"></script>
+
+        <main class="user-dashboard">
+            <section class="user-hero">
+                <div>
+                    <span class="user-kicker">User Dashboard</span>
+                    <h1 id="welcome-title">Welcome to PlogPatrol.</h1>
+                    <p>Track your joined events, keep your profile complete, and find the next cleanup drive near you.</p>
+                    <div class="user-actions">
+                        <a href="/Events.html">Browse Events</a>
+                        <a href="/UserEvents.html">My Events</a>
+                        <a href="/UserReview.html">Give Feedback</a>
+                    </div>
+                </div>
+                <img src="/images/Img3.jpg" alt="PlogPatrol community cleanup">
+            </section>
+
+            <section class="user-summary">
+                <article>
+                    <span>Joined Events</span>
+                    <strong id="joined-count">0</strong>
+                </article>
+                <article>
+                    <span>Profile Status</span>
+                    <strong id="profile-status">Checking</strong>
+                </article>
+                <article>
+                    <span>Next Step</span>
+                    <strong id="next-step">Explore</strong>
+                </article>
+            </section>
+
+            <section class="profile-reminder" id="profile-reminder" hidden>
+                <div>
+                    <strong>Complete your profile</strong>
+                    <p>Update your contact details so event organizers can reach you when needed.</p>
+                </div>
+                <a href="/editUserForm">Update Profile</a>
+            </section>
+
+            <section class="dashboard-grid">
+                <article class="dashboard-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <span class="user-kicker">Upcoming</span>
+                            <h2>Events to Join</h2>
+                        </div>
+                        <a href="/Events.html">View All</a>
+                    </div>
+                    <div id="upcoming-events" class="mini-event-list">
+                        <div class="mini-empty">Loading upcoming events...</div>
+                    </div>
+                </article>
+
+                <article class="dashboard-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <span class="user-kicker">Your Activity</span>
+                            <h2>Joined Events</h2>
+                        </div>
+                        <a href="/UserEvents.html">Open</a>
+                    </div>
+                    <div id="joined-events" class="mini-event-list">
+                        <div class="mini-empty">Loading joined events...</div>
+                    </div>
+                </article>
+            </section>
+        </main>
+
+        <div data-role-footer="user"></div>
+        <script src="/js/roleFooters.js"></script>
+    </div>
+
+    <script src="/js/UserMain.js"></script>
+</body>
+</html>

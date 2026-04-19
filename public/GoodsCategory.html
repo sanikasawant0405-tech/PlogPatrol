@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Goods Categories</title>
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/UserLogin.css">
+    <link rel="stylesheet" href="css/GoodsCategory.css">
+</head>
+<body>
+    <!-- Main Content -->
+    <div id="content">
+        <div data-role-header="donor" data-logout-mode="auto"></div>
+    <script src="/js/roleHeaders.js"></script>
+        <br><br><br>
+        <div class="goods-container">
+            <!-- Personal Protective Gear -->
+            <div class="goods-category">
+                <h3><i class="fas fa-shield-alt"></i> Personal Protective Gear</h3>
+                <div class="sub-categories">
+                    <div class="sub-category">
+                        <input type="checkbox" id="gloves" value="Gloves (disposable or reusable)">
+                        <label for="gloves"><i class="fas fa-hand-paper"></i> Gloves (disposable or reusable)</label>
+                    </div>
+                    <div class="sub-category">
+                        <input type="checkbox" id="masks" value="Masks (for dusty areas)">
+                        <label for="masks"><i class="fas fa-mask"></i> Masks (for dusty areas)</label>
+                    </div>
+                    <div class="sub-category">
+                        <input type="checkbox" id="vests" value="Safety vests (reflective for visibility)">
+                        <label for="vests"><i class="fas fa-vest"></i> Safety vests (reflective for visibility)</label>
+                    </div>
+                    <div class="sub-category">
+                        <input type="checkbox" id="sanitizers" value="Hand sanitizers (for cleaning after plogging)">
+                        <label for="sanitizers"><i class="fas fa-pump-medical"></i> Hand sanitizers (for cleaning after plogging)</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cleaning Tools -->
+            <div class="goods-category">
+                <h3><i class="fas fa-broom"></i> Cleaning Tools</h3>
+                <div class="sub-categories">
+                    <div class="sub-category">
+                        <input type="checkbox" id="trashbags" value="Trash bags (biodegradable preferred)">
+                        <label for="trashbags"><i class="fas fa-trash"></i> Trash bags (biodegradable preferred)</label>
+                    </div>
+                    <div class="sub-category">
+                        <input type="checkbox" id="recyclablebags" value="Recyclable bags (for sorting plastics, cans, etc.)">
+                        <label for="recyclablebags"><i class="fas fa-recycle"></i> Recyclable bags (for sorting plastics, cans, etc.)</label>
+                    </div>
+                    <div class="sub-category">
+                        <input type="checkbox" id="tongs" value="Tongs or litter pickers (to safely pick up waste)">
+                        <label for="tongs"><i class="fas fa-hand-holding-usd"></i> Tongs or litter pickers (to safely pick up waste)</label>
+                    </div>
+                    <div class="sub-category">
+                        <input type="checkbox" id="brooms" value="Brooms and dustpans (for sweeping areas)">
+                        <label for="brooms"><i class="fas fa-broom"></i> Brooms and dustpans (for sweeping areas)</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hydration & Energy -->
+            <div class="goods-category">
+                <h3><i class="fas fa-water"></i> Hydration & Energy</h3>
+                <div class="sub-categories">
+                    <div class="sub-category">
+                        <input type="checkbox" id="waterbottles" value="Reusable water bottles">
+                        <label for="waterbottles"><i class="fas fa-bottle-water"></i> Reusable water bottles</label>
+                    </div>
+                    <div class="sub-category">
+                        <input type="checkbox" id="energybars" value="Energy bars or snacks">
+                        <label for="energybars"><i class="fas fa-cookie-bite"></i> Energy bars or snacks</label>
+                    </div>
+                    <div class="sub-category">
+                        <input type="checkbox" id="electrolyte" value="Electrolyte drinks">
+                        <label for="electrolyte"><i class="fas fa-wine-glass"></i> Electrolyte drinks</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Apparel -->
+            <div class="goods-category">
+                <h3><i class="fas fa-tshirt"></i> Apparel</h3>
+                <div class="sub-categories">
+                    <div class="sub-category">
+                        <input type="checkbox" id="runningshoes" value="Comfortable running shoes">
+                        <label for="runningshoes"><i class="fas fa-shoe-prints"></i> Comfortable running shoes</label>
+                    </div>
+                    <div class="sub-category">
+                        <input type="checkbox" id="hats" value="Hats or caps (for sun protection)">
+                        <label for="hats"><i class="fas fa-hat-cowboy"></i> Hats or caps (for sun protection)</label>
+                    </div>
+                    <div class="sub-category">
+                        <input type="checkbox" id="socks" value="Socks (durable for outdoor use)">
+                        <label for="socks"><i class="fas fa-socks"></i> Socks (durable for outdoor use)</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="goods-category">
+                <h3><i class="fas fa-first-aid"></i> First Aid Supplies</h3>
+                <div class="sub-categories">
+                    <div class="sub-category">
+                        <input type="checkbox" id="bandaids" value="Band-aids">
+                        <label for="bandaids">
+                            <i class="fas fa-band-aid"></i> Band-aids
+                        </label>
+                    </div>
+                    <div class="sub-category">
+                        <input type="checkbox" id="antisepticwipes" value="Antiseptic wipes">
+                        <label for="antisepticwipes">
+                            <i class="fas fa-band-aid"></i> Antiseptic wipes
+                        </label>
+                    </div>
+                    <div class="sub-category">
+                        <input type="checkbox" id="firstaidkits" value="Basic first aid kits">
+                        <label for="firstaidkits">
+                            <i class="fas fa-band-aid"></i> Basic first aid kits
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="goods-category">
+                <h3><i class="fas fa-recycle"></i> Recycling & Sorting Supplies</h3>
+                <div class="sub-categories">
+                    <div class="sub-category">
+                        <input type="checkbox" id="labelledbins" value="Labelled bins (for sorting recyclables and non-recyclables)">
+                        <label for="labelledbins">
+                            <i class="fas fa-trash-alt"></i> Labelled bins (for sorting recyclables and non-recyclables)
+                        </label>
+                    </div>
+                    <div class="sub-category">
+                        <input type="checkbox" id="signagematerials" value="Signage materials (to raise awareness about waste sorting)">
+                        <label for="signagematerials">
+                            <i class="fas fa-sign"></i> Signage materials (to raise awareness about waste sorting)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Add to Cart Button -->
+            <button onclick="addToCart()">Add to Cart</button>
+        </div>
+    
+        <!-- Footer Section -->
+        <div data-role-footer="donor"></div>
+    <script src="/js/roleFooters.js"></script>
+    </div>
+
+    <!-- JavaScript to Handle Cart -->
+    <script>
+        let selectedItems = [];
+    
+        function addToCart() {
+            selectedItems = [];
+            const checkboxes = document.querySelectorAll('.sub-category input[type="checkbox"]:checked');
+            checkboxes.forEach((checkbox) => {
+                selectedItems.push({
+                    name: checkbox.value,
+                    quantity: 1 // Initial quantity is set to 1
+                });
+            });
+    
+            // Save the selected items in localStorage to persist across pages
+            localStorage.setItem('cartItems', JSON.stringify(selectedItems));
+            window.location.href = "Cart.html"; // Redirect to the cart page
+        }
+    </script>
+    
+</body>
+</html>

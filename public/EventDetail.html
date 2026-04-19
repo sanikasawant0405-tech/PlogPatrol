@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Event Details</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/AdminLogin.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .table-container {
+            margin: 20px auto 60px;
+            margin-top: 100px;
+            padding: 40px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4e97f1e7;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Styles for the status column */
+        .status-column {
+            font-weight: bold; 
+        }
+
+        .status-active {
+            color: green;
+        }
+
+        .status-inactive {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Content Wrapper -->
+    <div id="content">
+        <!-- Dashboard Section -->
+        <div data-role-header="admin" data-logout-mode="auto"></div>
+    <script src="/js/roleHeaders.js"></script>
+
+        
+
+        <!-- Plogger Details Table -->
+        <div class="table-container">
+           <center><h1>Plogger-Event Details</h1></center> <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Serial No</th>
+                        <th>Plogger Name</th>
+                        <th>Mobile No </th>
+                        <th>Event Name</th>
+                        <th>Date</th>
+                        <th>Day</th>
+                        <th>Time</th>
+                        <th>Location</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody id="eventTableBody">
+                    <!-- Data will be dynamically inserted here -->
+                </tbody>
+                </table>
+        </div>
+
+        <!-- Footer Section -->
+        <div data-role-footer="admin"></div>
+    <script src="/js/roleFooters.js"></script>
+    </div>
+
+   
+<script>
+    // Fetch past events from the server
+   // JavaScript to dynamically load data into the table
+fetch('/EventDetails')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data); // Optional: Check data in the console
+        const tableBody = document.getElementById('eventTableBody');
+        tableBody.innerHTML = '';  // Clear any existing content
+
+        // Loop through the data and create table rows
+        data.forEach((item) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item.e_eno}</td>
+                <td>${item.u_name}</td>
+                <td>${item.u_mobno}</td>
+                <td>${item.e_name}</td>
+                <td>${item.e_date}</td>
+                <td>${item.e_day}</td>
+                <td>${item.e_time}</td>
+                <td>${item.e_loc}</td>
+                <td>${item.e_desc}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+    })
+    .catch(error => console.error('Error fetching event details:', error));
+
+</script>
+
+</body>
+</html>

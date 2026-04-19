@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Donor Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap">
+    <link rel="stylesheet" href="css/DonorMain.css">
+</head>
+<body>
+    <div id="content">
+        <div data-role-header="donor" data-logout-mode="auto"></div>
+        <script src="/js/roleHeaders.js"></script>
+
+        <main class="donor-page">
+            <section class="donor-intro" aria-label="Donor dashboard">
+                <span class="donor-kicker">Donor Dashboard</span>
+                <h1>Choose the support that works best for you.</h1>
+                <p>Every donation helps clean routes, prepare volunteers, and keep plogging events ready for the community.</p>
+            </section>
+
+            <section class="donation-options" aria-label="Donation options">
+                <article class="donation-option">
+                    <img src="/images/Goods.jpg" alt="Donation goods and supplies">
+                    <div class="donation-option__body">
+                        <span>Supplies</span>
+                        <h2>Goods Donation</h2>
+                        <p>Contribute gloves, bags, safety gear, hydration items, first aid supplies, and cleanup tools.</p>
+                        <a href="GoodsCategory.html">Select Goods</a>
+                    </div>
+                </article>
+
+                <article class="donation-option">
+                    <img src="/images/UPI.jpg" alt="Digital cash donation">
+                    <div class="donation-option__body">
+                        <span>UPI Support</span>
+                        <h2>Cash Donation</h2>
+                        <p>Support event logistics, cleanup materials, and community outreach with a quick UPI contribution.</p>
+                        <a href="UPI.html">Donate Cash</a>
+                    </div>
+                </article>
+            </section>
+
+            <section class="donor-note" aria-label="Donation guidance">
+                <div>
+                    <strong>Donation History</strong>
+                    <p>Receipts and submitted donations stay available in your donor history.</p>
+                </div>
+                <a href="/DonorDonationHistory.html">View History</a>
+            </section>
+        </main>
+
+        <div data-role-footer="donor"></div>
+        <script src="/js/roleFooters.js"></script>
+    </div>
+</body>
+</html>

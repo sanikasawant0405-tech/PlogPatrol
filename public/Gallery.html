@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Gallery</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/Gallery.css">
+    
+</head>
+<body>
+    <!-- Main Content -->
+    <div id="content">
+        <div data-role-header="user" data-logout-mode="auto"></div>
+    <script src="/js/roleHeaders.js"></script>
+
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="event1">Event 1</button>
+            <button class="filter-btn" data-filter="event2">Event 2</button>
+            <button class="filter-btn" data-filter="event3">Event 3</button>
+        </div>
+
+        <!-- Gallery -->
+        <div class="gallery">
+            <div class="gallery-item" data-category="event1">
+                <img src="images/Image1.jpg" alt="Event 1 Image 1" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event2">
+                <img src="images/Image2.jpg" alt="Event 2 Image 1" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event3">
+                <img src="images/Image3.jpg" alt="Event 3 Image 1" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event1">
+                <img src="images/Image4.jpg" alt="Event 1 Image 2" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event2">
+                <img src="images/Image5.jpg" alt="Event 2 Image 2" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event3">
+                <img src="images/Image6.jpg" alt="Event 3 Image 2" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event1">
+                <img src="images/Image7.jpg" alt="Event 1 Image 3" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event2">
+                <img src="images/Image8.jpg" alt="Event 2 Image 3" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event3">
+                <img src="images/Image9.jpg" alt="Event 3 Image 3" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event1">
+                <img src="images/Image10.jpg" alt="Event 1 Image 4" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event2">
+                <img src="images/Image11.jpg" alt="Event 2 Image 4" on    click="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event3">
+                <img src="images/Image12.jpg" alt="Event 3 Image 4" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event1">
+                <img src="images/Image13.jpg" alt="Event 1 Image 5" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event2">
+                <img src="images/Image14.jpg" alt="Event 2 Image 5" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event3">
+                <img src="images/Image15.jpg" alt="Event 3 Image 5" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event2">
+                <img src="images/Image16.jpg" alt="Event 1 Image 6" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event3">
+                <img src="images/Image17.jpg" alt="Event 2 Image 6" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event2">
+                <img src="images/Image18.jpg" alt="Event 3 Image 6" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event1">
+                <img src="images/Image19.jpg" alt="Event 1 Image 7" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event2">
+                <img src="images/Image20.jpg" alt="Event 2 Image 7" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event3">
+                <img src="images/Image21.jpg" alt="Event 3 Image 7" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event1">
+                <img src="images/Image22.jpg" alt="Event 2 Image 8" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event3">
+                <img src="images/Image23.jpg" alt="Event 3 Image 8" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event2">
+                <img src="images/Image24.jpg" alt="Event 2 Image 9" onclick="openFullscreen(this)">
+            </div>
+            <div class="gallery-item" data-category="event3">
+                <img src="images/Image25.jpg" alt="Event 3 Image 9" onclick="openFullscreen(this)">
+            </div>
+        </div>
+
+        <!-- Full-Screen Image Container -->
+        <div id="fullscreen-container" onclick="closeFullscreen()">
+            <span id="close-btn">&times;</span>
+            <img id="fullscreen-img" src="" alt="Fullscreen Image">
+        </div>
+
+        <!-- Footer Section -->
+        <div data-role-footer="user"></div>
+    <script src="/js/roleFooters.js"></script>
+    </div>
+
+    <script src="js/Gallery.js"></script>
+</body>
+
+</html>

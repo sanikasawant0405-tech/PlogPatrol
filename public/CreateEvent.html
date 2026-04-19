@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Schedule Event</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/CreateEvent.css">
+</head>
+<body>
+    <!-- Main Content -->
+    <div id="content">
+        <div data-role-header="admin" data-logout-mode="auto"></div>
+    <script src="/js/roleHeaders.js"></script>
+
+        <div class="event-form">
+            <h2>Schedule a New Event</h2>
+            <form id="eventForm" action="/CreateEvent" method="POST">
+                <label for="eventName">Event Name</label>
+                <input type="text" id="eventName" name="e_name" placeholder="Enter event name" required>
+    
+                <label for="eventDate">Event Date</label>
+                <input type="date" id="eventDate" name="e_date" required>
+
+                <label for="eventDay">Event Day</label>
+                <input type="day" id="eventDay" name="e_day" required>
+    
+                <label for="eventTime">Event Time</label>
+                <input type="time" id="eventTime" name="e_time" required>
+    
+                <label for="eventLocation">Event Location</label>
+                <input type="text" id="eventLocation" name="e_loc" placeholder="Enter event location" required>
+    
+                <label for="eventDescription">Event Description</label>
+                <textarea id="eventDescription" name="e_desc" rows="5" placeholder="Enter event description" required></textarea>
+    
+                <button type="submit">Schedule Event</button>
+            </form>
+        </div>
+
+ <!-- Footer Section -->
+ <div data-role-footer="admin"></div>
+    <script src="/js/roleFooters.js"></script>
+
+</div>
+</body>
+</html>

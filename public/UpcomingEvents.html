@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Upcoming Events</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/AdminLogin.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .table-container {
+            margin: 20px auto 60px;
+            margin-top: 100px;
+            padding: 40px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4e97f1e7;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Styles for the status column */
+        .status-column {
+            font-weight: bold; 
+        }
+
+        .status-active {
+            color: green;
+        }
+
+        .status-inactive {
+            color: red;
+        }
+
+        /* Styles for Delete Button */
+        .delete-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Content Wrapper -->
+    <div id="content">
+        <!-- Dashboard Section -->
+        <div data-role-header="admin" data-logout-mode="auto"></div>
+    <script src="/js/roleHeaders.js"></script>
+
+        <!-- Plogger Details Table -->
+        <div class="table-container">
+            <center><h1>All Plogger Details</h1></center> <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Serial No</th>
+                        <th>Event Name</th>
+                        <th>Date</th>
+                        <th>Day</th>
+                        <th>Time</th>
+                        <th>Location</th>
+                        <th>Description</th>
+                        <th>Action</th> <!-- New Action Column -->
+                    </tr>
+                </thead>
+                <tbody id="eventTableBody">
+                    <!-- Data will be dynamically loaded here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Footer Section -->
+        <div data-role-footer="admin"></div>
+    <script src="/js/roleFooters.js"></script>
+    </div>
+
+    <!-- JavaScript to dynamically load data into the table -->
+    <script>
+        function notify(message, type = 'info') {
+            if (window.showToast) {
+                window.showToast(message, type);
+                return;
+            }
+
+            window["alert"](message);
+        }
+
+        // Fetch upcoming events from the server
+        fetch('/UpcomingEvents')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Optional: Check if the data is correct in the console
+            const tableBody = document.getElementById('eventTableBody');
+            tableBody.innerHTML = '';  // Clear existing content if any
+
+            // Loop through the data and create table rows
+            data.forEach(event => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${event.e_srno}</td>
+                    <td>${event.e_name}</td>
+                    <td>${event.e_date}</td>
+                    <td>${event.e_day}</td>
+                    <td>${event.e_time}</td>
+                    <td>${event.e_loc}</td>
+                    <td>${event.e_desc}</td>
+                    <td><button class="delete-button" data-id="${event.e_srno}">Delete</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Add event listeners to all delete buttons
+            const deleteButtons = document.querySelectorAll('.delete-button');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const eventId = button.getAttribute('data-id');
+                    const eventName = button.parentElement.parentElement.children[1].innerText;
+
+                    if (confirm(`Are you sure you want to delete the event "${eventName}"?`)) {
+                        fetch(`/deleteEvent/${eventId}`, {
+                            method: 'DELETE',
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                // Remove the row from the table
+                                button.parentElement.parentElement.remove();
+                                notify('Event deleted successfully.', 'success');
+                            } else {
+                                return response.text().then(text => { throw new Error(text); });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error deleting event:', error);
+                            notify('Failed to delete the event.', 'error');
+                        });
+                    }
+                });
+            });
+        })
+        .catch(error => console.error('Error fetching upcoming events:', error));
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Update Profile</title>
+    <link rel="stylesheet" href="/css/PersonalInfo.css">
+</head>
+<body>
+<div data-role-header="user" data-logout-mode="auto"></div>
+    <script src="/js/roleHeaders.js"></script>
+<div class="registration-container">
+    <form id="updateForm" action="/editUser" method="POST">
+        <h1>Update Personal Information</h1>
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" name="u_name" value="<%= user.u_name || '' %>" required>
+        <label for="age">Age</label>
+        <input type="text" id="age" name="u_age" value="<%= user.u_age || '' %>" required>
+        <label for="phone">Mobile Phone</label>
+        <input type="text" id="phone" name="u_mobno" pattern="[0-9]{10}" value="<%= user.u_mobno || '' %>" required>
+        <label for="address">Address</label>
+        <input type="text" id="address" name="u_address" value="<%= user.u_address || '' %>" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="u_mailid" value="<%= user.u_mailid || '' %>" required>
+        <label>Gender</label>
+        <input type="radio" id="male" name="u_gender" value="male" <%= user.u_gender === 'male' ? 'checked' : '' %>> Male
+        <input type="radio" id="female" name="u_gender" value="female" <%= user.u_gender === 'female' ? 'checked' : '' %>> Female
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="u_dob" value="<%= user.u_dob || '' %>">
+        <button type="submit">Update</button>
+    </form>
+</div>
+<div data-role-footer="user"></div>
+    <script src="/js/roleFooters.js"></script>
+    <script src="/js/formMessages.js"></script>
+    <script src="/js/editUserForm.js"></script>
+</body>
+</html>

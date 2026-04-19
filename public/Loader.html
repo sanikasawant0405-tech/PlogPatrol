@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Home</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap">
+    <link rel="stylesheet" href="css/loader.css">
+</head>
+<body>
+    <div id="loader">
+        <img src="images/TLogo.png" alt="PlogPatrol" id="loader-logo">
+        <p id="loader-tagline">Step Up, Clean Up.</p>
+    </div>
+
+    <div id="content" style="display: none;">
+        <div data-role-header="user" data-logout-mode="auto"></div>
+        <script src="/js/roleHeaders.js"></script>
+
+        <main class="container">
+            <section class="home-hero" aria-label="About PlogPatrol">
+                <div class="home-hero__copy">
+                    <span>PlogPatrol</span>
+                    <h1>Cleaner routes, stronger communities, healthier steps.</h1>
+                    <p>Join plogging events, support cleanup drives, and help turn everyday movement into practical environmental action.</p>
+                    <div class="home-hero__actions">
+                        <a href="UserRegistration.html">Join Community</a>
+                        <a href="Events.html" class="secondary-action">Explore Events</a>
+                    </div>
+                </div>
+                <img src="images/Img3.jpg" alt="Community plogging event">
+            </section>
+
+            <section class="info-boxes" aria-label="PlogPatrol highlights">
+                <article class="info-box">
+                    <div class="icon">ST</div>
+                    <h2>Our Story</h2>
+                    <p>Plogging began as a simple idea: combining the benefits of jogging with the need for environmental care. Today it brings people together through visible, local action.</p>
+                </article>
+
+                <article class="info-box">
+                    <div class="icon">MS</div>
+                    <h2>Our Mission</h2>
+                    <p>We organize cleanup events that promote healthier habits, cleaner public spaces, and stronger participation from citizens, donors, and volunteers.</p>
+                </article>
+
+                <article class="info-box">
+                    <div class="icon">PL</div>
+                    <h2>What is Plogging?</h2>
+                    <p>Plogging means jogging while picking up litter. It is a simple and effective way to combine movement with environmental responsibility.</p>
+                </article>
+
+                <article class="info-box">
+                    <div class="icon">VS</div>
+                    <h2>Our Vision</h2>
+                    <p>We work toward neighborhoods where cleaner streets become a shared habit and every event creates momentum for the next one.</p>
+                </article>
+            </section>
+
+            <section class="impact-strip" aria-label="Community impact">
+                <div>
+                    <strong>100+</strong>
+                    <span>cleanup events</span>
+                </div>
+                <div>
+                    <strong>1K+</strong>
+                    <span>participants reached</span>
+                </div>
+                <div>
+                    <strong>Fresh</strong>
+                    <span>local event updates</span>
+                </div>
+            </section>
+
+            <section class="slider-container" aria-label="PlogPatrol gallery preview">
+                <div class="slider">
+                    <img src="images/Img1.jpg" alt="Plogging Event 1">
+                    <img src="images/Img2.jpg" alt="Plogging Event 2">
+                    <img src="images/Img3.jpg" alt="Plogging Event 3">
+                    <img src="images/Img4.jpg" alt="Plogging Event 4">
+                    <img src="images/Img5.jpg" alt="Plogging Event 5">
+                    <img src="images/Img6.jpg" alt="Plogging Event 6">
+                    <img src="images/Img7.jpg" alt="Plogging Event 7">
+                </div>
+                <button class="prev" type="button" onclick="prevSlide()">Prev</button>
+                <button class="next" type="button" onclick="nextSlide()">Next</button>
+                <div class="thumbnails">
+                    <img src="images/Img1.jpg" alt="Thumbnail 1" onclick="showSlide(0)">
+                    <img src="images/Img2.jpg" alt="Thumbnail 2" onclick="showSlide(1)">
+                    <img src="images/Img3.jpg" alt="Thumbnail 3" onclick="showSlide(2)">
+                    <img src="images/Img4.jpg" alt="Thumbnail 4" onclick="showSlide(3)">
+                    <img src="images/Img5.jpg" alt="Thumbnail 5" onclick="showSlide(4)">
+                    <img src="images/Img6.jpg" alt="Thumbnail 6" onclick="showSlide(5)">
+                    <img src="images/Img7.jpg" alt="Thumbnail 7" onclick="showSlide(6)">
+                </div>
+            </section>
+        </main>
+
+        <div data-role-footer="user"></div>
+        <script src="/js/roleFooters.js"></script>
+    </div>
+
+    <script src="js/loader.js"></script>
+</body>
+</html>

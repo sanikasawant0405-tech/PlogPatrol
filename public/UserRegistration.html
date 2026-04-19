@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlogPatrol - User Registration</title>
+
+<link rel="stylesheet" href="css/UserRegistration.css">
+</head>
+
+<body>
+
+<div id="content">
+    <div data-role-header="user" data-logout-mode="never"></div>
+    <script src="/js/roleHeaders.js"></script>
+
+    <div class="registration-container">
+        <div class="registration-form">
+            <h1>Create User Account</h1>
+
+            <form id="registerForm">
+                <label>User ID</label>
+                <input type="text" name="username" required>
+
+                <label>Password</label>
+                <input type="password" name="password" required>
+
+                <label>Confirm Password</label>
+                <input type="password" name="confirmPassword" required>
+
+                <label>Security Question</label>
+                <select name="securityQuestion" required>
+                    <option value="">Select</option>
+                    <option value="favteach">Favorite Teacher?</option>
+                    <option value="sport">Favorite Sport?</option>
+                    <option value="gname">Grandfather Name?</option>
+                    <option value="color">Favorite Color?</option>
+                </select>
+
+                <label>Answer</label>
+                <input type="text" name="Answer" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div data-role-footer="user"></div>
+    <script src="/js/roleFooters.js"></script>
+</div>
+
+<script src="/js/formMessages.js"></script>
+<script>
+const registerMessageTarget = document.querySelector(".registration-form");
+
+function notify(message, type = "info") {
+    if (window.showFormMessage) {
+        window.showFormMessage(registerMessageTarget, message, type);
+        return;
+    }
+
+    if (window.showToast) {
+        window.showToast(message, type);
+        return;
+    }
+
+    window["alert"](message);
+}
+
+document.getElementById("registerForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    notify("Creating your account...", "info");
+
+    const username = document.querySelector("[name='username']").value.trim();
+    const password = document.querySelector("[name='password']").value;
+    const confirmPassword = document.querySelector("[name='confirmPassword']").value;
+    const securityQuestion = document.querySelector("[name='securityQuestion']").value;
+    const Answer = document.querySelector("[name='Answer']").value.trim();
+
+    if (password !== confirmPassword) {
+        notify("Passwords do not match.", "error");
+        return;
+    }
+
+    try {
+        const response = await fetch("/UserRegistration", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username,
+                password,
+                confirmPassword,
+                securityQuestion,
+                Answer
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            notify(`${data.message || "Registration successful."} Redirecting to login...`, "success");
+            setTimeout(() => {
+                window.location.href = data.redirectUrl || "UserLogin.html";
+            }, 700);
+        } else {
+            notify(data.message || "Registration failed.", "error");
+        }
+    } catch (error) {
+        console.error(error);
+        notify("Registration failed. Please make sure the server is running.", "error");
+    }
+});
+</script>
+</body>
+</html>

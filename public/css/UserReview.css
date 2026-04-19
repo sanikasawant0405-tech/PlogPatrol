@@ -1,0 +1,254 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Container Styling */
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Heading */
+h1 {
+    text-align: center;
+    color: #093b11;
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+.review-form {
+    background-color: #fafafa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.review-form h2 {
+    margin-bottom: 20px;
+    color: #093b11;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: none;
+}
+
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #093b11;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #4b751f;
+}
+
+/* Reviews Container */
+.reviews-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.reviews-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #093b11;
+}
+
+/* Review Animation */
+@keyframes fadeInSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px); /* Start from below */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* End at the original position */
+    }
+}
+
+.review {
+    background-color: white;
+    border-left: 5px solid #093b11;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    opacity: 0; /* Initially hidden */
+    animation: fadeInSlideUp 0.5s forwards; /* Animation applied here */
+    transition: opacity 0.5s ease-in; /* Smooth transition for opacity */
+}
+
+.review h3 {
+    margin-bottom: 5px;
+    color: #093b11;
+    font-size: 1.2rem;
+}
+
+.review small {
+    color: #666;
+}
+
+.review p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+/* Review Actions */
+.review-actions {
+    margin-top: 10px;
+}
+
+.btn-edit, .btn-delete {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+    background-color: #4b751f;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #093b11;
+}
+
+.btn-delete {
+    background-color: #d9534f;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #c9302c;
+}
+
+/* Add a class to trigger the animation */
+.fade-in {
+    animation: fadeInSlideUp 0.5s forwards;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .review-form,
+    .reviews-container {
+        padding: 15px;
+    }
+
+    .btn-submit,
+    .btn-edit,
+    .btn-delete {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 5px;
+    }
+}
+
+
+/* Add this to your existing CSS */
+
+/* Average Rating Display */
+.average-rating {
+    text-align: center;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #e9f5e9;
+    border-radius: 8px;
+    border: 2px solid #93c6a0;
+}
+
+.average-rating h2 {
+    margin: 10px 0;
+    color: #093b11;
+}
+
+.stars {
+    display: inline-block;
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    border-radius: 8px;
+    text-align: center;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

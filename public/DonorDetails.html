@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlogPatrol - Donor Details</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/AdminLogin.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .table-container {
+            margin: 20px auto 60px;
+            margin-top: 100px;
+            padding: 40px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4e97f1e7;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Styles for the status column */
+        .history-column {
+            font-weight: bold; /* Make text bold */
+        }
+
+        .history-link {
+            color: #4e97f1; /* Link color */
+            text-decoration: none; /* Remove underline */
+        }
+
+        .history-link:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Content Wrapper -->
+    <div id="content">
+        <!-- Dashboard Section -->
+        <div data-role-header="admin" data-logout-mode="auto"></div>
+    <script src="/js/roleHeaders.js"></script>
+
+        <!-- Donor Details Table -->
+        <div class="table-container">
+           <center><h1>All Donor Details</h1></center> <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>d_srno</th>
+                        <th>d_name</th>
+                        <th>d_mobno</th>
+                        <th>d_mailid</th>
+                        <th>d_gender</th>
+                        <th>d_dob</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic rows will be added here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Footer Section -->
+        <div data-role-footer="admin"></div>
+    <script src="/js/roleFooters.js"></script>
+    </div>
+
+    <script>
+        // Fetch donor details from the server
+        fetch('/DonorDetails') // Ensure the endpoint matches your server
+            .then(response => response.json())
+            .then(data => {
+                // Get the table body
+                const tableBody = document.querySelector('tbody');
+
+                // Clear any existing rows
+                tableBody.innerHTML = '';
+
+                // Loop through the donor details and add them as rows in the table
+                data.forEach(donor => {
+                    // Create a new table row
+                    const row = document.createElement('tr');
+
+                    // Insert table data for each column
+                    row.innerHTML = `
+                        <td>${donor.d_srno}</td>
+                        <td>${donor.d_name}</td>
+                        <td>${donor.d_mobno}</td>
+                        <td>${donor.d_mailid}</td>
+                        <td>${donor.d_gender}</td>
+                        <td>${donor.d_dob}</td>
+                    `;
+
+                    // Append the row to the table body
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching donor details:', error));
+    </script>
+
+</body>
+</html>
