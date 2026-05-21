@@ -6,6 +6,7 @@
     <title>PlogPatrol - Donor Donation History</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <link rel="stylesheet" href="css/DonationHistory.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </head>
 <body data-history-scope="donor">
     <div id="content">
@@ -52,6 +53,7 @@
                                 <th>Status</th>
                                 <th>Date</th>
                                 <th>Details</th>
+                                <th>Receipt PDF</th>
                             </tr>
                         </thead>
                         <tbody id="donation-history-body"></tbody>
@@ -63,6 +65,6 @@
 
     <div data-role-footer="donor"></div>
     <script src="/js/roleFooters.js"></script>
-    <script src="js/DonationHistory.js?v=3"></script>
+    <script src="js/DonationHistory.js?v=4"></script>
 </body>
 </html>

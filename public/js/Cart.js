@@ -7,8 +7,16 @@ function readStorageJson(key, fallbackValue) {
     }
 }
 
-let cartItems = readStorageJson("cartItems", []);
-let lastGoodsReceipt = readStorageJson("plogpatrolLastGoodsReceipt", null);
+function getActiveDonorId() {
+    return localStorage.getItem("donorUserId") || "guest-donor";
+}
+
+function getScopedStorageKey(baseKey) {
+    return `${baseKey}:${getActiveDonorId()}`;
+}
+
+let cartItems = readStorageJson(getScopedStorageKey("cartItems"), []);
+let lastGoodsReceipt = readStorageJson(getScopedStorageKey("plogpatrolLastGoodsReceipt"), null);
 
 const cartItemsContainer = document.getElementById("cart-items");
 const totalItemsCountElement = document.getElementById("total-items-count");
@@ -71,7 +79,7 @@ function getTotalItems(items = cartItems) {
 }
 
 function updateCartInLocalStorage() {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    localStorage.setItem(getScopedStorageKey("cartItems"), JSON.stringify(cartItems));
 }
 
 function renderCart() {
@@ -265,14 +273,14 @@ async function generateReceipt() {
     }
 
     lastGoodsReceipt = receipt;
-    localStorage.setItem("plogpatrolLastGoodsReceipt", JSON.stringify(lastGoodsReceipt));
+    localStorage.setItem(getScopedStorageKey("plogpatrolLastGoodsReceipt"), JSON.stringify(lastGoodsReceipt));
     renderReceipt(lastGoodsReceipt);
     receiptContainer.scrollIntoView({ behavior: "smooth", block: "start" });
 
     try {
         await saveDonationToDatabase(lastGoodsReceipt);
         lastGoodsReceipt.savedToDatabase = true;
-        localStorage.setItem("plogpatrolLastGoodsReceipt", JSON.stringify(lastGoodsReceipt));
+        localStorage.setItem(getScopedStorageKey("plogpatrolLastGoodsReceipt"), JSON.stringify(lastGoodsReceipt));
         renderReceipt(lastGoodsReceipt);
         notify("Goods receipt generated and saved in database.", "success");
     } catch (error) {

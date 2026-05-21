@@ -168,7 +168,8 @@
             });
     
             // Save the selected items in localStorage to persist across pages
-            localStorage.setItem('cartItems', JSON.stringify(selectedItems));
+            const donorId = localStorage.getItem('donorUserId') || 'guest-donor';
+            localStorage.setItem(`cartItems:${donorId}`, JSON.stringify(selectedItems));
             window.location.href = "Cart.html"; // Redirect to the cart page
         }
     </script>

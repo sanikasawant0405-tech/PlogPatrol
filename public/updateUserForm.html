@@ -31,8 +31,16 @@
         <input type="email" id="email" name="u_mailid" required>
 
         <label>Gender</label>
-        <input type="radio" id="male" name="u_gender" value="male"> Male
-        <input type="radio" id="female" name="u_gender" value="female"> Female
+        <div class="radio-group">
+            <label class="radio-option" for="u_gender_male">
+                <input type="radio" id="u_gender_male" name="u_gender" value="male">
+                <span>Male</span>
+            </label>
+            <label class="radio-option" for="u_gender_female">
+                <input type="radio" id="u_gender_female" name="u_gender" value="female">
+                <span>Female</span>
+            </label>
+        </div>
 
         <label for="dob">Date of Birth</label>
         <input type="date" id="dob" name="u_dob">

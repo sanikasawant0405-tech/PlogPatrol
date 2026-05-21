@@ -7,6 +7,7 @@ const refreshButton = document.getElementById("refresh-history");
 const totalDonationsElement = document.getElementById("total-donations");
 const totalUpiElement = document.getElementById("total-upi");
 const totalGoodsElement = document.getElementById("total-goods");
+let currentDonations = [];
 
 function escapeHtml(value) {
     return String(value ?? "")
@@ -39,8 +40,29 @@ function formatDateTime(value) {
     });
 }
 
+function formatDate(value) {
+    if (!value) {
+        return "Not provided";
+    }
+
+    return new Date(value).toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    });
+}
+
 function formatDonationType(type) {
     return type === "UPI" ? "UPI Payment" : "Goods Donation";
+}
+
+function notify(message, type = "info") {
+    if (window.showToast) {
+        window.showToast(message, type);
+        return;
+    }
+
+    window["alert"](message);
 }
 
 function getItemsText(donation) {
@@ -86,7 +108,7 @@ function updateSummary(donations) {
 }
 
 function renderEmptyState() {
-    const colspan = scope === "admin" ? 7 : 6;
+    const colspan = 6 + (scope === "admin" ? 1 : 0) + (scope === "donor" ? 1 : 0);
     tableBody.innerHTML = `
         <tr>
             <td colspan="${colspan}" class="empty-state">No donation history found yet.</td>
@@ -94,7 +116,144 @@ function renderEmptyState() {
     `;
 }
 
+function sanitizeFileName(value) {
+    return String(value || "receipt")
+        .replace(/[<>:"/\\|?*\u0000-\u001F]+/g, "_")
+        .replace(/\s+/g, "_");
+}
+
+function getDownloadButton(donation) {
+    if (scope !== "donor") {
+        return "";
+    }
+
+    return `
+        <td class="receipt-action-cell">
+            <button
+                type="button"
+                class="receipt-download-btn"
+                data-donation-id="${Number(donation.donation_id)}"
+            >
+                Download PDF
+            </button>
+        </td>
+    `;
+}
+
+function addPdfLine(doc, label, value, y, maxWidth = 180) {
+    doc.setFont("Helvetica", "normal");
+    doc.text(`${label}: ${String(value || "-")}`, 14, y, { maxWidth });
+}
+
+function downloadDonationReceipt(donation) {
+    const jsPdfApi = window.jspdf;
+
+    if (!jsPdfApi || !jsPdfApi.jsPDF) {
+        notify("Receipt PDF library could not be loaded.", "error");
+        return;
+    }
+
+    const { jsPDF } = jsPdfApi;
+    const doc = new jsPDF();
+    const donorName = donation.donor_name || donation.donor_userid || "Valued Donor";
+    const donorPhone = donation.donor_phone || "Not provided";
+    let y = 18;
+
+    doc.setFont("Helvetica", "bold");
+    doc.setFontSize(18);
+    doc.text(
+        donation.donation_type === "UPI"
+            ? "PlogPatrol Cash Donation Receipt"
+            : "PlogPatrol Goods Donation Receipt",
+        14,
+        y
+    );
+
+    y += 12;
+    doc.setFontSize(10);
+    doc.setFont("Helvetica", "normal");
+    doc.text(`Receipt No: ${donation.receipt_no || "-"}`, 14, y);
+    doc.text(`Status: ${donation.status || "-"}`, 140, y);
+
+    y += 8;
+    doc.text(`Generated On: ${formatDateTime(donation.created_at)}`, 14, y);
+
+    y += 12;
+    doc.setFont("Helvetica", "bold");
+    doc.text("Donor Details", 14, y);
+
+    y += 8;
+    addPdfLine(doc, "Name", donorName, y);
+
+    y += 7;
+    addPdfLine(doc, "Phone", donorPhone, y);
+
+    if (donation.donation_type === "GOODS") {
+        y += 7;
+        addPdfLine(doc, "Drop-off / Pickup Date", formatDate(donation.collection_date), y);
+
+        y += 7;
+        addPdfLine(doc, "Address", donation.collection_address || "Not provided", y, 180);
+
+        y += 18;
+        doc.setFont("Helvetica", "bold");
+        doc.text("No.", 14, y);
+        doc.text("Item", 30, y);
+        doc.text("Qty", 178, y);
+        doc.line(14, y + 3, 196, y + 3);
+
+        y += 10;
+        doc.setFont("Helvetica", "normal");
+        (Array.isArray(donation.items) ? donation.items : []).forEach((item, index) => {
+            if (y > 270) {
+                doc.addPage();
+                y = 18;
+            }
+
+            doc.text(String(index + 1), 14, y);
+            doc.text(String(item.name || "-"), 30, y, { maxWidth: 135 });
+            doc.text(String(item.quantity || 0), 180, y);
+            y += 9;
+        });
+
+        y += 8;
+        doc.setFont("Helvetica", "bold");
+        doc.text(`Total Quantity: ${donation.total_quantity || 0}`, 14, y);
+
+        y += 14;
+        doc.setTextColor(31, 122, 77);
+        doc.text("Thank you for your generous goods donation.", 14, y);
+    } else {
+        y += 12;
+        doc.setFont("Helvetica", "bold");
+        doc.text("Payment Details", 14, y);
+
+        y += 8;
+        addPdfLine(doc, "Donation Type", formatDonationType(donation.donation_type), y);
+
+        y += 7;
+        addPdfLine(doc, "Transaction ID", donation.transaction_id || "-", y);
+
+        y += 7;
+        addPdfLine(doc, "Payment Mode", donation.payment_mode || "UPI", y);
+
+        y += 7;
+        addPdfLine(doc, "Amount", formatCurrency(donation.amount), y);
+
+        y += 14;
+        doc.setFont("Helvetica", "bold");
+        doc.text(`Total Donation Amount: ${formatCurrency(donation.amount)}`, 14, y);
+
+        y += 14;
+        doc.setTextColor(31, 122, 77);
+        doc.text("Thank you for supporting PlogPatrol.", 14, y);
+    }
+
+    doc.save(`${sanitizeFileName(donation.receipt_no)}.pdf`);
+}
+
 function renderDonations(donations) {
+    currentDonations = donations;
     updateSummary(donations);
 
     if (donations.length === 0) {
@@ -117,6 +276,7 @@ function renderDonations(donations) {
                 <td><span class="status-pill">${escapeHtml(donation.status)}</span></td>
                 <td>${formatDateTime(donation.created_at)}</td>
                 <td class="details-cell" title="${escapeHtml(getDetails(donation))}">${escapeHtml(getDetails(donation))}</td>
+                ${getDownloadButton(donation)}
             </tr>
         `;
     }).join("");
@@ -153,11 +313,30 @@ async function loadDonationHistory() {
         renderDonations(Array.isArray(data) ? data : []);
     } catch (error) {
         console.error(error);
+        currentDonations = [];
         updateSummary([]);
         renderEmptyState();
         statusElement.textContent = error.message || "Error loading donation history.";
     }
 }
+
+tableBody.addEventListener("click", (event) => {
+    const downloadButton = event.target.closest(".receipt-download-btn");
+
+    if (!downloadButton) {
+        return;
+    }
+
+    const donationId = Number(downloadButton.getAttribute("data-donation-id"));
+    const donation = currentDonations.find((item) => Number(item.donation_id) === donationId);
+
+    if (!donation) {
+        notify("Receipt data could not be found for this transaction.", "error");
+        return;
+    }
+
+    downloadDonationReceipt(donation);
+});
 
 refreshButton.addEventListener("click", loadDonationHistory);
 loadDonationHistory();

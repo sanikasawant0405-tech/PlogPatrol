@@ -81,7 +81,7 @@ body {
     padding: 28px;
 }
 
-.balance-card {
+.payment-panel .balance-card {
     background: linear-gradient(135deg, var(--receipt-green), #64a857);
     border-radius: 22px;
     color: #fff;
@@ -89,13 +89,22 @@ body {
     padding: 26px;
 }
 
-.balance-card span {
-    display: block;
-    font-size: 0.9rem;
-    opacity: 0.82;
+.payment-panel .balance-card {
+    background: linear-gradient(135deg, var(--receipt-green), #64a857) !important;
+    border: 0 !important;
+    border-radius: 22px !important;
+    box-shadow: 0 18px 38px rgba(31, 122, 77, 0.24) !important;
+    color: #fff !important;
 }
 
-.balance-card strong {
+.payment-panel .balance-card span {
+    color: rgba(255, 255, 255, 0.82) !important;
+    display: block;
+    font-size: 0.9rem;
+}
+
+.payment-panel .balance-card strong {
+    color: #fff !important;
     display: block;
     font-size: clamp(2rem, 5vw, 3rem);
     margin-top: 10px;

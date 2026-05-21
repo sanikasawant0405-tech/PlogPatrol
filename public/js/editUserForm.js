@@ -39,12 +39,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("email").value = user.u_mailid || "";
         document.getElementById("dob").value = user.u_dob || "";
 
-        if (user.u_gender === "male") {
-            document.getElementById("male").checked = true;
-        }
+        if (user.u_gender) {
+            const selectedGender = form.querySelector(`input[name="u_gender"][value="${user.u_gender}"]`);
 
-        if (user.u_gender === "female") {
-            document.getElementById("female").checked = true;
+            if (selectedGender) {
+                selectedGender.checked = true;
+            }
         }
     } catch (error) {
         console.error(error);

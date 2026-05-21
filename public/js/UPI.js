@@ -12,9 +12,23 @@ function readStorageJson(key, fallbackValue) {
     }
 }
 
-let balance = Number(localStorage.getItem(balanceStorageKey) || 0);
-let transactionHistory = readStorageJson(historyStorageKey, []);
-let lastTransaction = readStorageJson(receiptStorageKey, null);
+let balance = 0;
+let transactionHistory = [];
+let lastTransaction = null;
+
+function getActiveDonorId() {
+    return localStorage.getItem("donorUserId") || "guest-donor";
+}
+
+function getScopedStorageKey(baseKey) {
+    return `${baseKey}:${getActiveDonorId()}`;
+}
+
+function loadWalletState() {
+    balance = Number(localStorage.getItem(getScopedStorageKey(balanceStorageKey)) || 0);
+    transactionHistory = readStorageJson(getScopedStorageKey(historyStorageKey), []);
+    lastTransaction = readStorageJson(getScopedStorageKey(receiptStorageKey), null);
+}
 
 function notify(message, type = "info") {
     if (window.showToast) {
@@ -69,9 +83,9 @@ function getDonorName() {
 }
 
 function saveWalletState() {
-    localStorage.setItem(balanceStorageKey, String(balance));
-    localStorage.setItem(historyStorageKey, JSON.stringify(transactionHistory));
-    localStorage.setItem(receiptStorageKey, JSON.stringify(lastTransaction));
+    localStorage.setItem(getScopedStorageKey(balanceStorageKey), String(balance));
+    localStorage.setItem(getScopedStorageKey(historyStorageKey), JSON.stringify(transactionHistory));
+    localStorage.setItem(getScopedStorageKey(receiptStorageKey), JSON.stringify(lastTransaction));
 }
 
 function updateBalance() {
@@ -323,6 +337,7 @@ function updateTransactionHistory() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    loadWalletState();
     updateBalance();
     updateTransactionHistory();
 

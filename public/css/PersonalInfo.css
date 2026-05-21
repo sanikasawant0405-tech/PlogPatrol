@@ -80,8 +80,29 @@ textarea {
     resize: vertical;
 }
 
-input[type="radio"] {
-    margin: 0 6px 16px 0;
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 22px;
+    margin-bottom: 16px;
+}
+
+.radio-option {
+    align-items: center;
+    color: #26342d;
+    display: inline-flex;
+    font-size: 0.94rem;
+    font-weight: 700;
+    gap: 8px;
+    margin-bottom: 0;
+}
+
+.radio-group input[type="radio"] {
+    margin: 0 !important;
+}
+
+.radio-group + .error-message {
+    margin-top: -8px;
 }
 
 input:focus,
@@ -129,5 +150,9 @@ button:hover {
 
     .registration-container form {
         padding: 22px;
+    }
+
+    .radio-group {
+        gap: 10px 16px;
     }
 }

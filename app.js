@@ -67,9 +67,39 @@ function getDatabaseErrorMessage(error) {
     return null;
 }
 
+function formatDateParts(year, month, day) {
+    return `${String(year).padStart(4, "0")}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+}
+
 function normalizeDate(value) {
     if (!value) {
         return null;
+    }
+
+    if (typeof value === "string") {
+        const trimmedValue = value.trim();
+
+        if (!trimmedValue) {
+            return null;
+        }
+
+        const directDateMatch = trimmedValue.match(/^(\d{4})-(\d{2})-(\d{2})/);
+
+        if (directDateMatch) {
+            return `${directDateMatch[1]}-${directDateMatch[2]}-${directDateMatch[3]}`;
+        }
+
+        const parsedDate = new Date(trimmedValue);
+
+        if (Number.isNaN(parsedDate.getTime())) {
+            return null;
+        }
+
+        return formatDateParts(
+            parsedDate.getFullYear(),
+            parsedDate.getMonth() + 1,
+            parsedDate.getDate()
+        );
     }
 
     const date = value instanceof Date ? value : new Date(value);
@@ -78,7 +108,11 @@ function normalizeDate(value) {
         return null;
     }
 
-    return date.toISOString().slice(0, 10);
+    return formatDateParts(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        date.getDate()
+    );
 }
 
 function getDayName(dateValue) {
@@ -846,11 +880,21 @@ app.post("/api/donor/donations", requireDonor, asyncHandler(async (req, res) => 
 }));
 
 app.get("/api/donor/donations", requireDonor, asyncHandler(async (req, res) => {
+    const donor = await getDonorByUserId(req.session.donor);
+
+    if (!donor) {
+        return sendResponse(req, res, {
+            status: 404,
+            message: "Donor account not found.",
+            redirectUrl: "/Donorlogin.html"
+        });
+    }
+
     const [rows] = await query(
         `SELECT * FROM donationhistory
          WHERE donor_userid = ?
          ORDER BY created_at DESC, donation_id DESC`,
-        [req.session.donor]
+        [donor.d_userid]
     );
 
     res.json(rows.map(serializeDonation));
