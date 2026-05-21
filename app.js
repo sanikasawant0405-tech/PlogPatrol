@@ -946,9 +946,16 @@ app.get("/api/admin/dashboard", requireAdmin, asyncHandler(async (req, res) => {
 
 
 app.post("/AdminMain", asyncHandler(async (req, res) => {
-    const { a_id, a_password } = req.body;
+    const a_id = String(req.body.a_id || "").trim();
+    const a_password = String(req.body.a_password || "").trim();
 
-    if (a_id === ADMIN_USERNAME && a_password === ADMIN_PASSWORD) {
+    const adminUsername = String(process.env.ADMIN_USERNAME || "admin").trim();
+    const adminPassword = String(process.env.ADMIN_PASSWORD || "admin123").trim();
+
+    console.log("Admin entered:", { a_id, a_password });
+    console.log("Admin env:", { adminUsername, adminPassword });
+
+    if (a_id === adminUsername && a_password === adminPassword) {
         req.session.admin = true;
         return sendResponse(req, res, {
             message: "Admin login successful.",
